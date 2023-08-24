@@ -1,0 +1,19 @@
+.LoadingContent_mainDiv{
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    row-gap: 3%;
+}
+
+.LoadingContent_mainDiv > div{
+    background-color: rgb(91, 88, 88);
+}
+
+.LoadingContent_mainDiv:first-child{
+    position: relative;
+}
+
+h2{
+    position: absolute;
+    top: 10%;
+    left: 50%;
+}

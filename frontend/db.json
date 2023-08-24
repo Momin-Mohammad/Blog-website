@@ -1,0 +1,10 @@
+{
+  "posts": [],
+  "users": [
+    {
+      "id": 1,
+      "name": "user",
+      "email": "user@gmail.com"
+    }
+  ]
+}
