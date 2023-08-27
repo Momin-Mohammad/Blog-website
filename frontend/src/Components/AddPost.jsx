@@ -7,7 +7,7 @@ import axios from "axios";
 
 export default function AddPost({onAddingPost}){
     const {id} = useParams();
-    console.log(id)
+    //console.log(id)
     const[Img,setImg] = useState("");
     const[heading,setHeading] = useState("");
     const[desc,setDesc] = useState("");
@@ -61,6 +61,11 @@ export default function AddPost({onAddingPost}){
             onAddingPost(newData)
             dispatch(addPostData(newData));
         }
+        setImg("");
+        setHeading("");
+        setDesc("");
+        setContent("");
+        setGenre("");
         
     }
 
@@ -86,10 +91,10 @@ export default function AddPost({onAddingPost}){
     return(
         <Box p={2} w={"70%"} margin={"auto"} textAlign={"center"}>
             <form onSubmit={submitPostData}>
-               {Img?<Image margin={"auto"} w={"10%"} src={Img} alt="postImg"/>:null}
+               {Img?<Image margin={"auto"} w={"50%"} src={Img} alt="postImg"/>:null}
                <Input
                required
-               w={"30%"}
+               w={{base:"70%",sm:"70%",md:"40%",lg:"30%"}}
                border={"0px"}
                marginTop={"1%"} 
                onChange={(e)=>handleImageUpload(e)} 

@@ -1,11 +1,10 @@
+import { DB_posts_URL } from "../../utils";
 import { PostFailure, PostLoading, PostSuccess, getAllPost } from "./posts.types";
 import axios from "axios";
 
-const baseUrl = "http://localhost:8080/posts";
-
 export const getAllPostsAction = (genre)=>(dispatch)=>{
      dispatch({type:PostLoading});
-    axios.get(baseUrl)
+    axios.get(DB_posts_URL)
     .then(res=>{
         if(genre==="all"){
             dispatch({type:getAllPost,payload:{data:res.data,genre:genre}})
@@ -18,7 +17,7 @@ export const getAllPostsAction = (genre)=>(dispatch)=>{
 }
 
 export const addPostData = (data)=>()=>{
-    axios.post(baseUrl,data)
+    axios.post(DB_posts_URL,data)
     .then(res=>{
         console.log(res.data)
         // getAllPostsAction();
@@ -29,7 +28,7 @@ export const addCommentAction = ({heading,addNewComment})=>()=>{
 
     let comments;
     let id;
-    axios.get(`${baseUrl}?q=${heading}`)
+    axios.get(`${DB_posts_URL}?q=${heading}`)
     .then(res=>{
         id=res.data[0].id
         if(res.data[0].comments){
@@ -40,16 +39,16 @@ export const addCommentAction = ({heading,addNewComment})=>()=>{
             }
         }
         console.log("comments:",comments)
-        axios.patch(`${baseUrl}/${id}`,comments).then(res=>console.log(res.data.comments)).catch(err=>console.log(err));
+        axios.patch(`${DB_posts_URL}/${id}`,comments).then(res=>console.log(res.data.comments)).catch(err=>console.log(err));
     }).catch(err=>console.log(err));
 }
 
 export const deletePostAction = (id)=>()=>{
-    axios.delete(`${baseUrl}/${id}`).then(res=>console.log(res.data))
+    axios.delete(`${DB_posts_URL}/${id}`).then(res=>console.log(res.data))
     .catch(err=>console.log(err))
 }
 
 export const editPostAction =({id,newData})=>()=>{
-    axios.patch(`${baseUrl}/${id}`,newData)
+    axios.patch(`${DB_posts_URL}/${id}`,newData)
     .then(res=> console.log(res.data)).catch(err=>console.log(err))
 }

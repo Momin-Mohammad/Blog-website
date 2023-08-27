@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react"
+import { Box, Text, useToast } from "@chakra-ui/react"
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import axios from "axios";
@@ -7,16 +7,35 @@ import CommentSection from "./CommentSection";
 import AllComments from "./AllComments";
 import { useDispatch } from "react-redux";
 import { addCommentAction } from "../Redux/PostsRedux/posts.actions";
+import SubscriptionForm from "./SubscriptionForm";
+import { DB_posts_URL } from "../utils";
 
 export default function Post(){
     const {heading} = useParams();
+    const toast = useToast();
     const[post,setPost] = useState([]);
     const[allComments,setAllComments] = useState([]);
     const dispatch = useDispatch();
  
     const addComment = ({comment,setComment})=>{
+        const userLoggedIn = localStorage.getItem("newsSiteUserLoggedIn");
+        if(!userLoggedIn){
+            window.scrollTo(0,1000);
+            toast({
+                title: "Please verify you account before commenting",
+                status: 'success',
+                duration: 5000,
+                isClosable: true,
+              })
+            return
+        } 
         if(!comment){
-         alert("Add comment");
+            toast({
+                title: "Please write some comment",
+                status: 'success',
+                duration: 5000,
+                isClosable: true,
+              })
          return;
         }
         let addNewComment = {
@@ -28,14 +47,13 @@ export default function Post(){
      }
 
     useEffect(()=>{
-        axios.get(`http://localhost:8080/posts?q=${heading}`)
+        axios.get(`${DB_posts_URL}?q=${heading}`)
         .then(res=>{
             if(res.data[0].comments){
                 setAllComments(res.data[0].comments)
             }
             setPost(res.data[0])}).catch(err=>console.log(err))
     },[])
-    console.log(post)
     return(
         <Box 
         textAlign={"start"}>
@@ -52,7 +70,7 @@ export default function Post(){
              whiteSpace={"pre-wrap"}>{post.content}</Box>
 
              <Box 
-             margin={"2% 0%"}
+             margin={"2% 0% 5% 0%"}
              w={{base:"100%",sm:"100%",md:"70%",lg:"60%"}}
              borderRight={"2px solid gray"}
              borderRadius={"10px"}
@@ -64,8 +82,10 @@ export default function Post(){
                         <Box key={index}><AllComments comment={ele.comment} /></Box>
                         )
                     }
-                </Box>
+            </Box>
              </Box>
+
+             <SubscriptionForm />
         </Box>
     )
 }

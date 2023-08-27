@@ -8,6 +8,7 @@ export default function PostDisplay({image,heading,desc,time,date,genre}){
         <Box
         borderBottom={useColorModeValue('1.5px solid black', '1.5px solid white')}
         p={"1%"}
+        position={"relative"}
         >
             <Box
             display={{base:"block",sm:"block",md:"flex",lg:"flex"}}
@@ -16,11 +17,11 @@ export default function PostDisplay({image,heading,desc,time,date,genre}){
             >
             <Box
             w={{base:"50%",sm:"50%",md:"40%",lg:"30%"}}
-            ><Image w={"100%"} h={"100%"} src={image} alt="Post image" /></Box>
+            ><Image w={"100%"} h={"100%"} src={image} alt="Post image" />
+            </Box>
             <Box
             w={"100%"}
-            position={"relative"}
-             textAlign={"start"}>
+            textAlign={"start"}>
             <Text
             fontSize={{base:"medium",sm:"medium",md:"larger",lg:"larger"}}
             fontWeight={"600"}
@@ -35,7 +36,9 @@ export default function PostDisplay({image,heading,desc,time,date,genre}){
             marginBottom={{base:"10%",sm:"10%",md:"5%",lg:"5%"}}
             >{desc}</Text>
             <Box
+            fontSize={{base:"small"}}
             w={"100%"}
+            marginTop={"10%"}
             display={"flex"}
             gap={"3%"}
             position={"absolute"} bottom={"0px"}

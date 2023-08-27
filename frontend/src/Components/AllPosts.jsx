@@ -24,7 +24,7 @@ export default function AllPost({deletePost,allPosts}){
               latestOrder.map((ele)=>
                     <Box
                     padding={"2% 1%"}
-                    borderBottom={"1.5px solid orange"}
+                    borderBottom={"4px solid gray"}
                      key={ele.id}>
                         <PostDisplay
                     image={ele.image}
@@ -34,9 +34,9 @@ export default function AllPost({deletePost,allPosts}){
                     heading={ele.heading}
                     genre={ele.genre}
                     />
-                    <Box>
-                        <Button onClick={()=>navigate(`/admin/editpost/${ele.id}`)}>Edit</Button>
-                        <Button onClick={()=>deletePost(ele.id)}>Delete</Button>
+                    <Box display={"flex"} justifyContent={"center"} gap="5%">
+                        <Button bgColor={"orange.500"} onClick={()=>navigate(`/admin/editpost/${ele.id}`)}>Edit</Button>
+                        <Button bgColor={"red"} onClick={()=>deletePost(ele.id)}>Delete</Button>
                     </Box>
                     </Box>
                 )
