@@ -4,17 +4,17 @@ import { useDispatch } from "react-redux";
 import {addPostData, editPostAction} from "../Redux/PostsRedux/posts.actions";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-
+import { DB_posts_URL } from "../utils";
 export default function AddPost({onAddingPost}){
-    const {id} = useParams();
-    //console.log(id)
+    const {heading} = useParams();
+    console.log(heading)
     const[Img,setImg] = useState("");
-    const[heading,setHeading] = useState("");
+    const[postHeading,setPostHeading] = useState("");
     const[desc,setDesc] = useState("");
     const[content,setContent] = useState("");
     const[genre,setGenre] = useState("");
     const dispatch = useDispatch();
-
+   
     let date =  new Date();
     let day = date.getDate()
     let month = date.getMonth();
@@ -24,86 +24,86 @@ export default function AddPost({onAddingPost}){
     let hours= date.getHours();
 
    useEffect(()=>{
-    if(id){
-        axios.get(`http://localhost:8080/posts/${id}`)
+    if(heading){
+        console.log("ID present")
+        axios.get(`${DB_posts_URL}/${heading}`)
         .then(res=>{
-            setHeading(res.data.heading)
-            setDesc(res.data.desc)
-            setContent(res.data.content)
-            setGenre(res.data.genre)
+            console.log(res.data)
+            setPostHeading(res.data.post[0].heading)
+            setDesc(res.data.post[0].desc)
+            setContent(res.data.post[0].content)
+            setGenre(res.data.post[0].genre)
         }).catch(err=>console.log(err))
     }
    },[])
 
     const submitPostData =(e)=>{
         e.preventDefault();
-        let newData;
-        if(id){
-            newData={
-            image : Img,
-            heading : heading,
-            desc : desc,
-            content : content,
-            genre : genre
-            }
-            dispatch(editPostAction({id,newData}))
+        let formData = new FormData();
+        if(heading){
+            formData.append('image',Img)
+            formData.append('heading',postHeading)
+            formData.append('desc',desc)
+            formData.append('content',content)
+            formData.append('genre',genre)
+            dispatch(editPostAction({heading,formData}))
             alert(`Post with heading: ${heading} editted successfully`)
         }else{
-            newData = {
-            image : Img,
-            heading : heading,
-            desc : desc,
-            content : content,
-            date : day+"-"+"0"+month+"-"+year,
-            time : hours+":"+minutes,
-            genre : genre
-        }
-            onAddingPost(newData)
-            dispatch(addPostData(newData));
+        formData.append('image',Img)
+        formData.append('heading',postHeading)
+        formData.append('desc',desc)
+        formData.append('content',content)
+        formData.append('date',day + "-" + "0" + month + "-" + year)
+        formData.append('time',hours +":" + minutes)
+        formData.append('genre',genre)
+        console.log("NewData:",formData)
+            onAddingPost(formData);
+            dispatch(addPostData(formData));
         }
         setImg("");
-        setHeading("");
+        setPostHeading("");
         setDesc("");
         setContent("");
         setGenre("");
         
     }
 
-    const convertToBase64  =(imageFile)=>{
-        return new Promise((resolve,reject)=>{
-            const fileReader = new FileReader();
-            fileReader.readAsDataURL(imageFile);
-            fileReader.onload =()=>{
-                resolve(fileReader.result);
-            };
-            fileReader.onerror =(error)=>{
-                reject(error);
-            }
-        })
-    }
+    // const convertToBase64  =(imageFile)=>{
+    //     return new Promise((resolve,reject)=>{
+    //         const fileReader = new FileReader();
+    //         fileReader.readAsDataURL(imageFile);
+    //         fileReader.onload =()=>{
+    //             resolve(fileReader.result);
+    //         };
+    //         fileReader.onerror =(error)=>{
+    //             reject(error);
+    //         }
+    //     })
+    // }
 
-    const handleImageUpload = async(e) => {
+    const handleImageUpload = (e) => {
         const file = e.target.files[0];
-        const toBase64 = await convertToBase64(file)
-        setImg(toBase64);
-      console.log("toBase64 :",toBase64);
+        //const toBase64 = await convertToBase64(file)
+        console.log("toBase64 :",file);
+        setImg(file);
       }
     return(
         <Box p={2} w={"70%"} margin={"auto"} textAlign={"center"}>
-            <form onSubmit={submitPostData}>
-               {Img?<Image margin={"auto"} w={"50%"} src={Img} alt="postImg"/>:null}
+            <form onSubmit={submitPostData} encType="multipart/form-data" >
+               {Img?<Image margin={"auto"} w={"50%"} src={Img.name} alt="postImg"/>:null}
                <Input
                required
+               name="image"
                w={{base:"70%",sm:"70%",md:"40%",lg:"30%"}}
                border={"0px"}
                marginTop={"1%"} 
                onChange={(e)=>handleImageUpload(e)} 
                type="file" />
                <Input
-               value={heading}
+               value={postHeading}
                required
                marginTop={"1%"}  
-               onChange={(e)=>setHeading(e.target.value)} 
+               onChange={(e)=>setPostHeading(e.target.value)} 
                type="text" placeholder="enter post headng" />
                 <Textarea
                 value={desc}

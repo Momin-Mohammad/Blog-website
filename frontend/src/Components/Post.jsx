@@ -22,7 +22,7 @@ export default function Post(){
         if(!userLoggedIn){
             window.scrollTo(0,1000);
             toast({
-                title: "Please verify you account before commenting",
+                title: "Please verify your account before commenting",
                 status: 'success',
                 duration: 5000,
                 isClosable: true,
@@ -47,12 +47,13 @@ export default function Post(){
      }
 
     useEffect(()=>{
-        axios.get(`${DB_posts_URL}?q=${heading}`)
+        axios.get(`${DB_posts_URL}/${heading}`)
         .then(res=>{
-            if(res.data[0].comments){
-                setAllComments(res.data[0].comments)
+            console.log(res.data)
+            if(res.data.post[0].comments){
+                setAllComments(res.data.post[0].comments)
             }
-            setPost(res.data[0])}).catch(err=>console.log(err))
+            setPost(res.data.post[0])}).catch(err=>console.log(err))
     },[])
     return(
         <Box 

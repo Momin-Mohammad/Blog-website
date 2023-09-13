@@ -7,9 +7,9 @@ export const getAllPostsAction = (genre)=>(dispatch)=>{
     axios.get(DB_posts_URL)
     .then(res=>{
         if(genre==="all"){
-            dispatch({type:getAllPost,payload:{data:res.data,genre:genre}})
+            dispatch({type:getAllPost,payload:{data:res.data.posts,genre:genre}})
         }else{
-            let filteredPosts = res.data?.filter((ele)=>ele.genre===genre);
+            let filteredPosts = res.data?.posts.filter((ele)=>ele.genre===genre);
             dispatch({type:getAllPost,payload:{data:filteredPosts,genre:genre}})
         }
         
@@ -17,38 +17,30 @@ export const getAllPostsAction = (genre)=>(dispatch)=>{
 }
 
 export const addPostData = (data)=>()=>{
-    axios.post(DB_posts_URL,data)
+    axios.post(`${DB_posts_URL}/addPost`,data)
     .then(res=>{
-        console.log(res.data)
+        console.log(res.data.posts)
         // getAllPostsAction();
     }).catch(err=>console.log("err:",err))
 }
 
 export const addCommentAction = ({heading,addNewComment})=>()=>{
-
-    let comments;
-    let id;
-    axios.get(`${DB_posts_URL}?q=${heading}`)
+    axios.get(`${DB_posts_URL}/${heading}`)
     .then(res=>{
-        id=res.data[0].id
-        if(res.data[0].comments){
-           comments ={comments : [...res.data[0]?.comments,addNewComment]}
-        }else{
-            comments = {
-                comments : [addNewComment]
-            }
-        }
-        console.log("comments:",comments)
-        axios.patch(`${DB_posts_URL}/${id}`,comments).then(res=>console.log(res.data.comments)).catch(err=>console.log(err));
+        console.log("checkThis:",res.data.post)
+        let id=res.data.post[0]._id
+        axios.patch(`${DB_posts_URL}/${id}`,addNewComment)
+        .then(res=>console.log("In the end:",res.data.post)).catch(err=>console.log(err));
     }).catch(err=>console.log(err));
 }
 
 export const deletePostAction = (id)=>()=>{
-    axios.delete(`${DB_posts_URL}/${id}`).then(res=>console.log(res.data))
+    axios.delete(`${DB_posts_URL}/deletepost/${id}`)
+    .then(res=>console.log(res.data))
     .catch(err=>console.log(err))
 }
 
-export const editPostAction =({id,newData})=>()=>{
-    axios.patch(`${DB_posts_URL}/${id}`,newData)
-    .then(res=> console.log(res.data)).catch(err=>console.log(err))
+export const editPostAction =({heading,formData})=>()=>{
+    axios.patch(`${DB_posts_URL}/editpost/${heading}`,formData)
+    .then(res=> console.log(res.data.post)).catch(err=>console.log(err))
 }

@@ -14,7 +14,7 @@ export default function AllRoutes(){
             <Route path="/about" element={<About/>} />
             <Route path="/post/:heading" element={<Post/>} />
             <Route path="/admin" element={<AdminPage/>}/>
-            <Route path="/admin/editpost/:id" element={<EditPost/>} />
+            <Route path="/admin/editpost/:heading" element={<EditPost/>} />
         </Routes>
     )
 }

@@ -5,14 +5,15 @@ import { useEffect, useState } from "react";
 import { deletePostAction, getAllPostsAction } from "../Redux/PostsRedux/posts.actions";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+import { DB_posts_URL } from "../utils";
 
 export default function AdminPage(){
     const[postAdded,setPostAdded] = useState([]);
     const dispatch = useDispatch();
     useEffect(()=>{
-        axios.get("http://localhost:8080/posts").then(res=>{
-            console.log(res.data)
-            setPostAdded(res.data)})
+        axios.get(DB_posts_URL).then(res=>{
+            console.log(res.data.posts)
+            setPostAdded(res.data.posts)})
         .catch(err=>console.log(err))
     },[])
 
@@ -21,7 +22,7 @@ export default function AdminPage(){
     }
 
     const deletePost = (postId)=>{
-        let filterPost = postAdded.filter((ele)=>ele.id!==postId);
+        let filterPost = postAdded.filter((ele)=>ele._id!==postId);
         setPostAdded(filterPost);
         dispatch(deletePostAction(postId))
     }
