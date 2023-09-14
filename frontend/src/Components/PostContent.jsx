@@ -19,7 +19,8 @@ export default function PostContent(){
     let reverseContent = [...content].reverse();
     return(
         <Box
-        overflow={"auto"}
+        overflowY={"auto"}
+        overflowX={"hidden"}
         w={"100%"}
         >
             { loading?<LoadingContent />

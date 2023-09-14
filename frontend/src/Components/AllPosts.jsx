@@ -1,4 +1,4 @@
-import { Box, Button, useColorMode, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, Text, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import { useEffect } from "react";
 import PostDisplay from "./PostDisplay";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,8 +17,15 @@ export default function AllPost({deletePost,allPosts}){
     },[])
     return(
         <Box
+        borderTop={useColorModeValue('1.5px solid black', '1.5px solid white')}
         borderBottom={useColorModeValue('1.5px solid black', '1.5px solid white')}
         >
+            <Text 
+            fontSize={"xx-large"}
+            fontWeight={"600"}
+            borderBottom={useColorModeValue('1.5px solid black', '1.5px solid white')}
+            borderTop={useColorModeValue('1.5px solid black', '1.5px solid white')}
+            >{allPosts.length?"All Posts":"No post added"}</Text>
             { loading?<LoadingContent />
             :
               latestOrder.map((ele)=>

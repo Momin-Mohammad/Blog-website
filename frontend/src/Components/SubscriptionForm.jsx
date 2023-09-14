@@ -23,13 +23,18 @@ export default function SubscriptionForm(){
             duration: 5000,
             isClosable: true,
           })
-          localStorage.setItem("newsSiteUserLoggedIn",email)
+          localStorage.setItem("newsSiteUserLoggedIn",name)
      }).catch(err=>console.log(err));
      setEmail("");
      setName("");
     }
     return(
-        <Box textAlign={"center"} w={"40%"} margin={"auto"} marginTop={"2%"}>
+        <Box 
+        textAlign={"center"} 
+        w={"40%"} 
+        margin={"auto"} 
+        marginTop={"2%"}
+        marginBottom={"2%"}>
             <Text color={"goldenrod"}>• Subscribe to my website to receive newletter</Text>
         <form onSubmit={subscribeUser}>
         <Input 

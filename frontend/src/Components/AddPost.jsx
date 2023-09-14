@@ -57,6 +57,7 @@ export default function AddPost({onAddingPost}){
         formData.append('time',hours +":" + minutes)
         formData.append('genre',genre)
         console.log("NewData:",formData)
+        console.log(formData)
             onAddingPost(formData);
             dispatch(addPostData(formData));
         }
@@ -90,11 +91,12 @@ export default function AddPost({onAddingPost}){
     return(
         <Box p={2} w={"70%"} margin={"auto"} textAlign={"center"}>
             <form onSubmit={submitPostData} encType="multipart/form-data" >
-               {Img?<Image margin={"auto"} w={"50%"} src={Img.name} alt="postImg"/>:null}
+               {/* {Img?<Image margin={"auto"} w={"50%"} src={Img.name} alt="postImg"/>:null} */}
                <Input
+               cursor={"pointer"}
                required
                name="image"
-               w={{base:"70%",sm:"70%",md:"40%",lg:"30%"}}
+               w={{base:"80%",sm:"80%",md:"50%",lg:"40%"}}
                border={"0px"}
                marginTop={"1%"} 
                onChange={(e)=>handleImageUpload(e)} 
@@ -129,7 +131,7 @@ export default function AddPost({onAddingPost}){
                   <option value='crime'>crime</option>
                   <option value='fashion'>fashion</option>
                 </Select>
-                <Input marginTop={"1%"}  type="submit" value="Submit"/>
+                <Input cursor={"pointer"} marginTop={"1%"}  type="submit" value="Submit"/>
             </form>
         </Box>
     )

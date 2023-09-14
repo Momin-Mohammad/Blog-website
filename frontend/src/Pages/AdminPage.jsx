@@ -27,7 +27,9 @@ export default function AdminPage(){
         dispatch(deletePostAction(postId))
     }
     return(
-    <Box>
+    <Box
+    overflowX={"hidden"}
+    >
         <AddPost onAddingPost = {onAddingPost}/>
         <AllPost 
         deletePost={deletePost}

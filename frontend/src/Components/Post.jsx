@@ -1,4 +1,4 @@
-import { Box, Text, useToast } from "@chakra-ui/react"
+import { Box, useColorMode, useColorModeValue, useToast } from "@chakra-ui/react"
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import axios from "axios";
@@ -13,10 +13,11 @@ import { DB_posts_URL } from "../utils";
 export default function Post(){
     const {heading} = useParams();
     const toast = useToast();
+    const { colorMode, toggleColorMode } = useColorMode();
     const[post,setPost] = useState([]);
     const[allComments,setAllComments] = useState([]);
     const dispatch = useDispatch();
- 
+   
     const addComment = ({comment,setComment})=>{
         const userLoggedIn = localStorage.getItem("newsSiteUserLoggedIn");
         if(!userLoggedIn){
@@ -38,7 +39,9 @@ export default function Post(){
               })
          return;
         }
+        
         let addNewComment = {
+            username : userLoggedIn,
             comment : comment
         }
         allComments.length?setAllComments([...allComments,addNewComment]):setAllComments([addNewComment])
@@ -57,6 +60,7 @@ export default function Post(){
     },[])
     return(
         <Box 
+        overflowX={"hidden"}
         textAlign={"start"}>
             <PostDisplay
             image = {post.image}
@@ -68,7 +72,9 @@ export default function Post(){
              />
              <Box 
              padding={"0% 1%"}
-             whiteSpace={"pre-wrap"}>{post.content}</Box>
+             whiteSpace={"pre-wrap"}
+             borderBottom={useColorModeValue('1.5px solid black', '1.5px solid white')}
+             >{post.content}</Box>
 
              <Box 
              margin={"2% 0% 5% 0%"}
@@ -80,7 +86,11 @@ export default function Post(){
             <Box>
                     {
                         allComments?.map((ele,index)=>
-                        <Box key={index}><AllComments comment={ele.comment} /></Box>
+                        <Box key={index}>
+                            <AllComments
+                            username={ele.username} 
+                            comment={ele.comment} />
+                            </Box>
                         )
                     }
             </Box>
