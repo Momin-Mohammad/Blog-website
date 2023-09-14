@@ -3,6 +3,7 @@ const cors = require("cors");
 const connection = require("./Configs/db");
 const userRouter = require("./Routes/UserRoute");
 const postRouter = require("./Routes/PostRoute");
+const adminRouter = require("./Routes/AdminRoute");
 require("dotenv").config();
 
 const app = express();
@@ -10,6 +11,7 @@ app.use(express.json());
 app.use(cors({origin:"*"}));
 app.use("/user",userRouter);
 app.use("/posts",postRouter);
+app.use("/admin",adminRouter);
 
 app.get("/",(req,res)=>{
     res.send("Working");

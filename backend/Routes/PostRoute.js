@@ -27,11 +27,9 @@ postRouter.get("/:heading",async(req,res)=>{
 postRouter.patch("/:id",async(req,res)=>{
   let id = req.params.id;
   let addNewComment = req.body;
-  console.log(addNewComment,id)
   let findThePost  = await postModel.find({_id:id});
   let commentsObj={comments : [...findThePost[0]?.comments,addNewComment]}
   let updatePost = await postModel.findOneAndUpdate({_id:id},{$set:commentsObj},{new:true});
-  console.log(updatePost)
   await updatePost.save();
   res.send({msg:"Comment added successfully",post:updatePost});
 });
