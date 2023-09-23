@@ -2,12 +2,11 @@ import { Box, Image, Input, Select, Textarea } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {addPostData, editPostAction} from "../Redux/PostsRedux/posts.actions";
-import { useParams } from "react-router-dom";
+import { generatePath, useParams } from "react-router-dom";
 import axios from "axios";
 import { DB_posts_URL } from "../utils";
 export default function AddPost({onAddingPost}){
     const {heading} = useParams();
-    console.log(heading)
     const[Img,setImg] = useState("");
     const[postHeading,setPostHeading] = useState("");
     const[desc,setDesc] = useState("");
@@ -25,10 +24,8 @@ export default function AddPost({onAddingPost}){
 
    useEffect(()=>{
     if(heading){
-        console.log("ID present")
         axios.get(`${DB_posts_URL}/${heading}`)
         .then(res=>{
-            console.log(res.data)
             setPostHeading(res.data.post[0].heading)
             setDesc(res.data.post[0].desc)
             setContent(res.data.post[0].content)
@@ -55,10 +52,18 @@ export default function AddPost({onAddingPost}){
         formData.append('content',content)
         formData.append('date',day + "-" + "0" + month + "-" + year)
         formData.append('time',hours +":" + minutes)
-        formData.append('genre',genre)
-        console.log("NewData:",formData)
-        console.log(formData)
-            onAddingPost(formData);
+        formData.append('genre',genre);
+
+        let newData = {
+          image : Img,
+          heading : postHeading,
+          desc : desc,
+          content : content,
+          date : day + "-" + "0" + month + "-" + year,
+          time : hours +":" + minutes,
+          genre : generatePath
+        }
+            onAddingPost(newData);
             dispatch(addPostData(formData));
         }
         setImg("");
@@ -68,26 +73,7 @@ export default function AddPost({onAddingPost}){
         setGenre("");
         
     }
-
-    // const convertToBase64  =(imageFile)=>{
-    //     return new Promise((resolve,reject)=>{
-    //         const fileReader = new FileReader();
-    //         fileReader.readAsDataURL(imageFile);
-    //         fileReader.onload =()=>{
-    //             resolve(fileReader.result);
-    //         };
-    //         fileReader.onerror =(error)=>{
-    //             reject(error);
-    //         }
-    //     })
-    // }
-
-    const handleImageUpload = (e) => {
-        const file = e.target.files[0];
-        //const toBase64 = await convertToBase64(file)
-        console.log("toBase64 :",file);
-        setImg(file);
-      }
+    
     return(
         <Box p={2} w={"70%"} margin={"auto"} textAlign={"center"}>
             <form onSubmit={submitPostData} encType="multipart/form-data" >
@@ -99,7 +85,7 @@ export default function AddPost({onAddingPost}){
                w={{base:"80%",sm:"80%",md:"50%",lg:"40%"}}
                border={"0px"}
                marginTop={"1%"} 
-               onChange={(e)=>handleImageUpload(e)} 
+               onChange={(e)=>setImg(e.target.files[0])} 
                type="file" />
                <Input
                value={postHeading}

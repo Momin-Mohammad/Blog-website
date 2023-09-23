@@ -35,7 +35,14 @@ export default function LoginPage(){
                     isClosable: true,
                   })
             }
-        }).catch(err=>console.log(err))
+        }).catch(err=>{
+            toast({
+                title: "Something went wrong. If you are the site owner please check the console",
+                status: 'success',
+                duration: 5000,
+                isClosable: true,
+              })
+            console.log(err)})
     }
     return(
         <Box

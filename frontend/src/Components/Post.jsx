@@ -52,11 +52,18 @@ export default function Post(){
     useEffect(()=>{
         axios.get(`${DB_posts_URL}/${heading}`)
         .then(res=>{
-            console.log(res.data)
             if(res.data.post[0].comments){
                 setAllComments(res.data.post[0].comments)
             }
-            setPost(res.data.post[0])}).catch(err=>console.log(err))
+            setPost(res.data.post[0])})
+            .catch(err=>{
+                toast({
+                    title: "Something went wrong. If you are the site owner, please check console",
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                  })
+                console.log(err)})
     },[])
     return(
         <Box 

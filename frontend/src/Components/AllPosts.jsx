@@ -28,11 +28,11 @@ export default function AllPost({deletePost,allPosts}){
             >{allPosts.length?"All Posts":"No post added"}</Text>
             { loading?<LoadingContent />
             :
-              latestOrder.map((ele)=>
+              latestOrder.map((ele,index)=>
                     <Box
                     padding={"2% 1%"}
                     borderBottom={"4px solid gray"}
-                     key={ele._id}>
+                     key={ele.index}>
                         <PostDisplay
                     image={ele.image}
                     date={ele.date}

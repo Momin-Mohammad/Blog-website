@@ -12,9 +12,10 @@ export default function AdminPage(){
     const dispatch = useDispatch();
     useEffect(()=>{
         axios.get(DB_posts_URL).then(res=>{
-            console.log(res.data.posts)
             setPostAdded(res.data.posts)})
-        .catch(err=>console.log(err))
+        .catch(err=>{
+            alert("Some error occured. If you are the site owner please check the console")
+            console.log(err)})
     },[])
 
     const onAddingPost = (newData)=>{

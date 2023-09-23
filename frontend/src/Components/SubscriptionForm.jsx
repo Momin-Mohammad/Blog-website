@@ -24,7 +24,14 @@ export default function SubscriptionForm(){
             isClosable: true,
           })
           localStorage.setItem("newsSiteUserLoggedIn",name)
-     }).catch(err=>console.log(err));
+     }).catch(err=>{
+      toast({
+        title: "Something went wrong. If you are the site owner, please check the console",
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      })
+      console.log(err)});
      setEmail("");
      setName("");
     }
