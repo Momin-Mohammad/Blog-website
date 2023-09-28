@@ -5,8 +5,8 @@ const postSchema = mongoose.Schema({
     heading : {type:String},
     desc : {type:String},
     content : {type:String},
-    date : String,
-    time : String,
+    date : {type:String},
+    time : {type:String},
     genre : {type:String},
     comments : {type:Array}
 });

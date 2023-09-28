@@ -7,7 +7,7 @@ require("dotenv").config();
 
 adminRouter.get("/",async(req,res)=>{
     let admin = await adminModel.find();
-    res.send({msg:admin})
+    res.send({msg:"All Admin Data",admins:admin})
 });
 
 adminRouter.post("/reg",async(req,res)=>{

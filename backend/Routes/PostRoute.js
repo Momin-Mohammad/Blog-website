@@ -1,17 +1,9 @@
 const {Router} = require("express");
 const postModel = require("../Model/PostModel");
 const postRouter = Router();
+const {storage} = require("../Configs/cloudinaryConfig");
 const multer = require("multer");
-const path = require("path");
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, '../frontend/public/postimages')
-    },
-    filename: function (req, file, cb) {
-      cb(null, Date.now() + path.extname(file.originalname))
-    }
-  })
-const upload = multer({storage:storage})
+const upload = multer({storage:storage});
 
 postRouter.get("/",async(req,res)=>{
     let allPosts = await postModel.find();
@@ -34,11 +26,20 @@ postRouter.patch("/:id",async(req,res)=>{
   res.send({msg:"Comment added successfully",post:updatePost});
 });
 
-postRouter.post("/addPost",upload.single('image'),async(req,res)=>{
-    const {image,heading,desc,content,date,time,genre} = req.body;
-    let newPost = new postModel({image:req.file.filename,heading,desc,content,date,time,genre});
+postRouter.post("/addPost",upload.single("image"),async(req,res)=>{
+  const{heading,content,desc,genre,time,date} = req.body;
+  const imageURL = req.file.path;
+
+  let postExist = await postModel.find({heading});
+  if(postExist.length){
+    res.send({msg:"Post already exist"})
+  }else{
+    let newPost = new postModel({image:imageURL,heading,comments:[],content,desc,date,time,genre});
     await newPost.save();
-    res.send({msg:"Post added successfully",post:newPost})
+    console.log("Newpost:",newPost)
+    res.send({msg:"Post added successfully",post:newPost});
+  }
+
 });
 
 postRouter.patch("/editpost/:heading",upload.single('image'),async(req,res)=>{
