@@ -17,7 +17,7 @@ export default function PostDisplay({image,heading,desc,time,date,genre}){
             >
             <Box
             w={{base:"50%",sm:"50%",md:"40%",lg:"30%"}}
-            ><Image w={"100%"} h={"100%"} src={`/postimages/${image}`} alt="Post image" />
+            ><Image w={"100%"} h={"100%"} src={image} alt="Post image" />
             </Box>
             <Box
             w={"100%"}
