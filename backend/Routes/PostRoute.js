@@ -34,7 +34,7 @@ postRouter.post("/addPost",upload.single("image"),async(req,res)=>{
   if(postExist.length){
     res.send({msg:"Post already exist"})
   }else{
-    let newPost = new postModel({image:imageURL,heading,comments:[],content,desc,date,time,genre});
+    let newPost = new postModel({image:imageURL,heading,content,desc,date,time,genre});
     await newPost.save();
     console.log("Newpost:",newPost)
     res.send({msg:"Post added successfully",post:newPost});
