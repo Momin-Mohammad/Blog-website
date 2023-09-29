@@ -48,8 +48,9 @@ postRouter.post("/addPost",upload.single("image"),async(req,res)=>{
 
 postRouter.patch("/editpost/:heading",upload.single('image'),async(req,res)=>{
   let postheading = req.params.heading;
-  let {image,heading,desc,content,genre} = req.body;
-  let updatePost = await postModel.findOneAndUpdate({heading:postheading},{$set:{image:req.file.filename,heading,desc,content,genre}},{new:true});
+  let {heading,desc,content,genre} = req.body;
+  let imgURL = req.file.path;
+  let updatePost = await postModel.findOneAndUpdate({heading:postheading},{$set:{image:imgURL,heading,desc,content,genre}},{new:true});
   await updatePost.save();
   res.send({msg:"Post updated successfully",post:updatePost});
 });
