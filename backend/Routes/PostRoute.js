@@ -31,13 +31,17 @@ postRouter.post("/addPost",upload.single("image"),async(req,res)=>{
   const imageURL = req.file.path;
 
   let postExist = await postModel.find({heading});
-  if(postExist.length){
-    res.send({msg:"Post already exist"})
-  }else{
-    let newPost = new postModel({image:imageURL,heading,content,desc,date,time,genre});
-    await newPost.save();
-    console.log("Newpost:",newPost)
-    res.send({msg:"Post added successfully",post:newPost});
+  try{
+    if(postExist.length){
+      res.send({msg:"Post already exist"});
+    }else{
+      let newPost = new postModel({image:imageURL,heading,content,desc,date,time,genre});
+      await newPost.save();
+      console.log("Newpost:",newPost);
+      res.send({msg:"Post added successfully",post:newPost});
+    }
+  }catch(err){
+    res.send({msg:"Error from server", error:err})
   }
 
 });
