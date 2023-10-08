@@ -19,7 +19,7 @@ export const getAllPostsAction = (genre)=>(dispatch)=>{
 export const addPostData = (data)=>()=>{
     axios.post(`${DB_posts_URL}/addPost`,data)
     .then(res=>{
-        console.log(res.data.posts)
+        console.log(res.data)
         // getAllPostsAction();
     }).catch(err=>console.log("err:",err))
 }
