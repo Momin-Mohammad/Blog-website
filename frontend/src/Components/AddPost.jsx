@@ -1,4 +1,4 @@
-import { Box, Image, Input, Select, Textarea } from "@chakra-ui/react";
+import { Box, Image, Input, Select, Textarea, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {addPostData, editPostAction} from "../Redux/PostsRedux/posts.actions";
@@ -7,6 +7,7 @@ import axios from "axios";
 import { DB_posts_URL } from "../utils";
 export default function AddPost({onAddingPost}){
     const {heading} = useParams();
+    const toast = useToast();
     const[Img,setImg] = useState("");
     const[postHeading,setPostHeading] = useState("");
     const[desc,setDesc] = useState("");
@@ -44,7 +45,12 @@ export default function AddPost({onAddingPost}){
             formData.append('content',content)
             formData.append('genre',genre)
             dispatch(editPostAction({heading,formData}))
-            alert(`Post with heading: ${heading} editted successfully`)
+            toast({
+                title: `Post with the heading ${postHeading} editted successfully.`,
+                status: 'success',
+                duration: 10000,
+                isClosable: true,
+              })
         }else{
         formData.append('image',Img)
         formData.append('heading',postHeading)

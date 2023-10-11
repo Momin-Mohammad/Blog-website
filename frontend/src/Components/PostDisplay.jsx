@@ -23,7 +23,7 @@ export default function PostDisplay({image,heading,desc,time,date,genre}){
             w={"100%"}
             textAlign={"start"}>
             <Text
-            fontSize={{base:"medium",sm:"medium",md:"larger",lg:"larger"}}
+            fontSize={{base:"medium",sm:"large",md:"larger",lg:"larger"}}
             fontWeight={"600"}
             cursor={"pointer"}
             _hover={{textDecoration:"underline"}}
@@ -32,8 +32,10 @@ export default function PostDisplay({image,heading,desc,time,date,genre}){
             </Text>
             <Text
             fontSize={{base:"medium"}}
+            textAlign={"justify"}
             marginTop={{base:"4%",sm:"4%",md:"2%",lg:"2%"}}
             marginBottom={{base:"10%",sm:"10%",md:"5%",lg:"5%"}}
+            padding={"0% 2%"}
             >{desc}</Text>
             <Box
             fontSize={{base:"small"}}

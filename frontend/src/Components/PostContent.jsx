@@ -19,6 +19,7 @@ export default function PostContent(){
     let reverseContent = [...content].reverse();
     return(
         <Box
+        h={"100vh"}
         overflowY={"auto"}
         overflowX={"hidden"}
         w={"100%"}

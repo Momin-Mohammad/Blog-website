@@ -1,9 +1,10 @@
-import { Box, Heading } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import styles from "./LoadingContent.module.css";
 
 export default function LoadingContent(){
     return(
         <Box
+        w={"100%"}
         h={"100%"}
         className={styles.LoadingContent_mainDiv}
         margin={"2%"}

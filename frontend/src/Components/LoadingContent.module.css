@@ -17,3 +17,9 @@ h2{
     top: 10%;
     left: 50%;
 }
+
+@media screen and (max-width:500px) {
+    .LoadingContent_mainDiv{
+        row-gap: 4%;
+    }
+}

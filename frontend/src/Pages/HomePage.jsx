@@ -8,7 +8,6 @@ import { useEffect } from "react";
 export default function HomePage(){
     return(
         <Box 
-        h={"100vh"}
         display={{base:"block", sm:"block",md:"flex",lg:"flex"}}>     
             <SideBar />
             <PostContent />

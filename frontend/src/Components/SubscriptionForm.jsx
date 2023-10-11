@@ -22,7 +22,6 @@ export default function SubscriptionForm(){
       const sendEmail=(target)=>{
         emailjs.sendForm("service_3zd16a9","template_b362yiv",target,"_NArWfJNHOJvYpAV4")
         .then(res=>{
-          console.log("Inside")
           toast({
             title: `Email verification status : ${res.text}`,
             status: 'success',
@@ -52,6 +51,8 @@ export default function SubscriptionForm(){
                   isClosable: true,
                 })
                 localStorage.setItem("newsSiteUserLoggedIn",name);
+                setName("");
+                setEmail("");
                 if(res.data.msg === "Thank You for subscribing"){
                   sendEmail(target)
                 }
@@ -86,11 +87,11 @@ export default function SubscriptionForm(){
     return(
         <Box 
         textAlign={"center"} 
-        w={"40%"} 
+        w={{base:"65%",sm:"80%",md:"60%",lg:"40%"}} 
         margin={"auto"} 
         marginTop={"2%"}
         marginBottom={"2%"}>
-            <Text color={"goldenrod"}>• Subscribe to my website to receive newletter</Text>
+            <Text color={"goldenrod"}>• Subscribe to my website to receive newsletter</Text>
         <form onSubmit={subscribeUser}>
         <Input 
         required

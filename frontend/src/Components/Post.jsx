@@ -78,7 +78,8 @@ export default function Post(){
             genre={post.genre}
              />
              <Box 
-             padding={"0% 1%"}
+             padding={"0% 3%"}
+             textAlign={"justify"}
              whiteSpace={"pre-wrap"}
              borderBottom={useColorModeValue('1.5px solid black', '1.5px solid white')}
              >{post.content}</Box>
