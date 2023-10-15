@@ -13,6 +13,7 @@ postRouter.get("/",async(req,res)=>{
 postRouter.get("/:heading",async(req,res)=>{
   let heading = req.params.heading;
   let reqPost = await postModel.find({heading:heading});
+  console.log("reqPost:",reqPost)
   res.send({msg:"Requested Post",post:reqPost});
 });
 
@@ -26,16 +27,16 @@ postRouter.patch("/:id",async(req,res)=>{
   res.send({msg:"Comment added successfully",post:updatePost});
 });
 
-postRouter.post("/addPost",upload.single("image"),async(req,res)=>{
+postRouter.post("/addPost",upload.array("images",5),async(req,res)=>{
   const{heading,content,desc,genre,time,date} = req.body;
-  const imageURL = req.file.path;
-
+  const imageURL = req.files;
+  console.log("Image:",req.files);
   let postExist = await postModel.find({heading});
   try{
     if(postExist.length){
       res.send({msg:"Post already exist"});
     }else{
-      let newPost = new postModel({image:imageURL,heading,content,desc,date,time,genre});
+      let newPost = new postModel({images:imageURL,heading,content,desc,date,time,genre});
       await newPost.save();
       console.log("Newpost:",newPost);
       res.send({msg:"Post added successfully",post:newPost});
@@ -46,10 +47,10 @@ postRouter.post("/addPost",upload.single("image"),async(req,res)=>{
 
 });
 
-postRouter.patch("/editpost/:heading",upload.single('image'),async(req,res)=>{
+postRouter.patch("/editpost/:heading",upload.array('images',5),async(req,res)=>{
   let postheading = req.params.heading;
   let {heading,desc,content,genre} = req.body;
-  let imgURL = req.file.path;
+  let imgURL = req.files;
   let updatePost = await postModel.findOneAndUpdate({heading:postheading},{$set:{image:imgURL,heading,desc,content,genre}},{new:true});
   await updatePost.save();
   res.send({msg:"Post updated successfully",post:updatePost});

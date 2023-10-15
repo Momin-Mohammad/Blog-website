@@ -13,7 +13,7 @@ const storage = new CloudinaryStorage({
     cloudinary,
     params:{
         folder : "BlogSiteImages",
-        allowedFormats: ['jpeg', 'png', 'jpg'],
+        allowedFormats: ['jpeg', 'png', 'jpg', 'gif'],
     }
 })
 

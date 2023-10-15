@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const postSchema = mongoose.Schema({
-    image : {type:String},
+    images : {type:Array},
     heading : {type:String},
     desc : {type:String},
     content : {type:String},
