@@ -29,7 +29,7 @@ export default function PostContent(){
                 reverseContent?.map((ele)=>
                 <div key={ele._id}>
                     <PostDisplay
-                    image={ele.image}
+                    image={ele.images[0].path}
                     date={ele.date}
                     desc={ele.desc}
                     time={ele.time}

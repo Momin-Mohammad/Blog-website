@@ -34,7 +34,7 @@ export default function AllPost({deletePost,allPosts}){
                     borderBottom={"4px solid gray"}
                      key={ele.index}>
                         <PostDisplay
-                    image={ele.image}
+                    image={ele.images[0].path||ele.images}
                     date={ele.date}
                     time={ele.time}
                     desc={ele.desc}

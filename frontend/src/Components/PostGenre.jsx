@@ -11,13 +11,14 @@ export default function PostGenre({genre}){
     }
     return(
         <Box 
-        onClick={()=>changeGenre(genre)}
+        onClick={()=>changeGenre(genre.toLowerCase())}
         _hover={{bgColor:"green"}}
         cursor={"pointer"}
         borderBottom={useColorModeValue('2px solid white', '2px solid black')}
         color={"black"}
          fontSize={{base:"12px", sm:"12px", md:"15px", lg:"17px"}}
          fontWeight={"600"}
+         flex={1}
          p={{ base:"4% 1.5%", sm:"4% 1.5%", md:"8% 1.5%", lg:"8% 1.5%"}}>
             <Text>{genre}</Text>
         </Box>

@@ -1,4 +1,4 @@
-import { Box, useColorMode, useColorModeValue, useToast } from "@chakra-ui/react"
+import { Box, Image, Text, useColorMode, useColorModeValue, useToast } from "@chakra-ui/react"
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import axios from "axios";
@@ -65,12 +65,14 @@ export default function Post(){
                   })
                 console.log(err)})
     },[])
+let result = post.content?.split("\r\n\r\n");
     return(
         <Box 
+        p={"2% 8%"}
         overflowX={"hidden"}
         textAlign={"start"}>
             <PostDisplay
-            image = {post.image}
+            image = {post.images && post.images[0]?.path}
             heading = {post.heading}
             time = {post.time}
             desc = {post.desc}
@@ -82,7 +84,19 @@ export default function Post(){
              textAlign={"justify"}
              whiteSpace={"pre-wrap"}
              borderBottom={useColorModeValue('1.5px solid black', '1.5px solid white')}
-             >{post.content}</Box>
+             >{
+                result?.map((ele)=>{
+                    if(ele.includes("*img")){
+                        return <Image 
+                        w={{base:"60%",sm:"80%",md:"55%",lg:"50%"}}
+                        h={"300px"}
+                        margin={"auto"}
+                        src={post.images[ele[ele.length-2]]?.path}/>
+                    }else{
+                        return <Text>{ele}</Text>
+                    }
+                })
+             }</Box>
 
              <Box 
              margin={"2% 0% 5% 0%"}

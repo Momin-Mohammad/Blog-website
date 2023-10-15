@@ -1,18 +1,22 @@
-import { Box } from "@chakra-ui/react";
-import styles from "./LoadingContent.module.css";
+import { Skeleton, Stack } from '@chakra-ui/react'
 
-export default function LoadingContent(){
-    return(
-        <Box
-        w={"100%"}
-        h={"100%"}
-        className={styles.LoadingContent_mainDiv}
-        margin={"2%"}
-        >
-           <div><h2>Loading...</h2></div>
-           <div></div>
-           <div></div>
-           <div></div>
-        </Box>
-    )
+function LoadingContent() {
+  return (
+    <Stack gap={1}>
+        <div>
+        <Skeleton height='100px' width={'95%'} m={5} />
+        </div>
+        <div>
+        <Skeleton height='100px' width={'95%'} m={5} />
+        </div>
+        <div>
+        <Skeleton height='100px' width={'95%'} m={5} />
+        </div>
+        <div>
+        <Skeleton height='100px' width={'95%'} m={5} />
+        </div>
+  </Stack>
+  )
 }
+
+export default LoadingContent
