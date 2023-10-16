@@ -27,22 +27,10 @@ const About = () => {
       textAlign="start" 
       margin={"auto"} 
       fontSize={"large"}
-      w={"80%"}>Hi! I am Mohammad Momin, a Full Stack Web Developer. I live in Bhiwandi, Maharashtra.
+      w={"80%"}>Hi! I am Mohammad Momin, a Full Stack Web Developer from Maharashtra.
         <br/>Its good to see you on my website page. I post daily news on this website.
          Please subscribe below to get notifications for latest news first hand.
 
-         <Text
-         fontWeight={"600"}
-         fontSize={"x-large"} 
-         textAlign={"center"} 
-         margin={"auto"} 
-         w={"60%"} 
-         marginTop={"5%"} 
-         marginBottom={"5%"}>
-        A democracy can thrive only as long as news and informations are truthful.
-        <br/>
-       <span style={{color:"goldenrod"}}>- Ravish Kumar</span> 
-         </Text>
       </Box>  
 
       <SubscriptionForm />

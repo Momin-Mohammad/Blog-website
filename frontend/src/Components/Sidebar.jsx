@@ -15,9 +15,8 @@ export default function SideBar(){
       justifyContent={{base:"space-around",sm:"space-around"}}
       >
 
-        <PostGenre genre="Politics" />
+        <PostGenre genre="Science" />
         <PostGenre genre="Crime" />
-        <PostGenre genre="Fashion" />
         <PostGenre genre="World" />
 
       </Box>

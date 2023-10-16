@@ -6,6 +6,7 @@ import { getAllPostsAction } from "../Redux/PostsRedux/posts.actions";
 import PostDisplay from "./PostDisplay";
 import LoadingContent from "./LoadingContent";
 import axios from "axios";
+// import AdsComponent from "./AdsComponent";
 
 export default function PostContent(){
     const dispatch = useDispatch()
@@ -24,6 +25,7 @@ export default function PostContent(){
         overflowX={"hidden"}
         w={"100%"}
         >
+             {/* <AdsComponent dataAdSlot="6686873481"/> */}
             { loading?<LoadingContent />
             :
                 reverseContent?.map((ele)=>

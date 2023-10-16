@@ -20,6 +20,9 @@ export default function AddPost({onAddingPost}){
     let day = date.getDate()
     let month = date.getMonth();
     month++;
+    if(month < 10){
+        month = "0" + month
+    }
     let year = date.getFullYear();
     let minutes = date.getMinutes();
     let hours= date.getHours();
@@ -72,7 +75,7 @@ export default function AddPost({onAddingPost}){
         formData.append('heading',postHeading)
         formData.append('desc',desc)
         formData.append('content',content)
-        formData.append('date',day + "-" + "0" + month + "-" + year)
+        formData.append('date',day + "-" + month + "-" + year)
         formData.append('time',hours +":" + minutes)
         formData.append('genre',genre);
         let base64URL = await convertToBase64(Img[0]);
@@ -139,9 +142,8 @@ export default function AddPost({onAddingPost}){
                 marginTop={"1%"}
                 onChange={(e)=>setGenre(e.target.value)} placeholder='Select option'
                 >
-                  <option value='politics'>Politics</option>
+                  <option value='science'>Science</option>
                   <option value='crime'>Crime</option>
-                  <option value='fashion'>Fashion</option>
                   <option value='world'>World</option>
                 </Select>
                 <Input cursor={"pointer"} marginTop={"1%"}  type="submit" value="Submit"/>
