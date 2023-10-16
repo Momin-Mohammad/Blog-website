@@ -40,21 +40,21 @@
 
 
 # ScreenShots
-![Home page](https://github.com/Momin-Mohammad/Blog-website/tree/main/project-images/Homepage.png)
+![Home page](https://github.com/Momin-Mohammad/Blog-website/blob/main/project-images/Homepage.png)
 
-![News page](https://github.com/Momin-Mohammad/Blog-website/tree/main/project-images/Postpage.png)
+![News page](https://github.com/Momin-Mohammad/Blog-website/blob/main/project-images/Postpage.png)
 
-![About page](https://github.com/Momin-Mohammad/Blog-website/tree/main/project-images/Aboutpage.png)
+![About page](https://github.com/Momin-Mohammad/Blog-website/blob/main/project-images/Aboutpage.png)
 
-![Admin login success](https://github.com/Momin-Mohammad/Blog-website/tree/main/project-images/Login-success-popup.png)
+![Admin login success](https://github.com/Momin-Mohammad/Blog-website/blob/main/project-images/Login-success-popup.png)
 
-![Admin page](https://github.com/Momin-Mohammad/Blog-website/tree/main/project-images/Adminpage.png)
+![Admin page](https://github.com/Momin-Mohammad/Blog-website/blob/main/project-images/Adminpage.png)
 
-![Login page](https://github.com/Momin-Mohammad/Blog-website/tree/main/project-images/Loginpage.png)
+![Login page](https://github.com/Momin-Mohammad/Blog-website/blob/main/project-images/Loginpage.png)
 
-![Page responsiveness](https://github.com/Momin-Mohammad/Blog-website/tree/main/project-images/Responsivepage.png)
+![Page responsiveness](https://github.com/Momin-Mohammad/Blog-website/blob/main/project-images/Responsivepage.png)
 
-![Page responsiveness](https://github.com/Momin-Mohammad/Blog-website/tree/main/project-images/Responsivepage1.png)
+![Page responsiveness](https://github.com/Momin-Mohammad/Blog-website/blob/main/project-images/Responsivepage1.png)
 
 
  
